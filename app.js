@@ -7,6 +7,12 @@ const game = {
   play: function() {
     this.secretNum = Math.floor(Math.random() * 
       (this.biggestNum - this.smallestNum + 1)) + this.smallestNum
+
+    do {
+      this.prevGuesses.push(this.playerGuess())
+      this.render()
+  
+    } while (this.prevGuesses[this.prevGuesses.length -1] !== this.secretNum)
   },
 
   getGuess: function() {
@@ -15,18 +21,16 @@ const game = {
       playerChoice = parseInt(prompt(`Enter a guess between ${this.smallestNum} and ${this.biggestNum}`))
 
       while (playerChoice > this.biggestNumber || playerChoice < this.smallestNum || isNaN(playerChoice)) parseInt(prompt(`Please enter a valid number`))
+
+      return playerChoice
+
       } 
         
-        
-        //isNaN(playerChoice)) {
-        // return `Please enter a valid number`
-      } 
+  } 
 
 //* Ask to review do while loops *
 
 /*
-
-4. From within the `play` method, invoke the `getGuess` method from inside a loop, and add the new guess to the `prevGuesses` array.
     - Hint: this is an excellent use for a while loop (or even a do...while loop!)
 5. Add a `render` method to `game` that `play` will call after a guess has been made that alerts:
     - If the secret has been guessed: `Congrats! You guessed the number in [number of prevGuesses]!`
