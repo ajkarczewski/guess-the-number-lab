@@ -9,7 +9,7 @@ const game = {
       (this.biggestNum - this.smallestNum + 1)) + this.smallestNum
 
     do {
-      this.prevGuesses.push(this.playerGuess())
+      this.prevGuesses.push(this.getGuess())
       this.render()
   
     } while (this.prevGuesses[this.prevGuesses.length -1] !== this.secretNum)
@@ -24,19 +24,25 @@ const game = {
 
       return playerChoice
 
-      } 
+      }, 
+
+      render: function() {
+        let msg
+
+        if(this.prevGuesses[this.prevGuesses.length -1] === this.secretNum) {
+          msg = `Congrats! You guessed the number in ${this.prevGuesses.length} ${this.prevGuesses.length > 1 ? "guesses" : "guess"}!`
+        } else {
+          msg = `Your guess is too ${
+            this.prevGuesses[this.prevGuesses.length -1] > this.secretNum ? "high" : "low"
+          }\nPrevious guesses: ${this.prevGuesses.join(", ")}`
+        }
+
+
+        alert(msg)
+
+      }
         
   } 
 
-//* Ask to review do while loops *
+  game.play()
 
-/*
-    - Hint: this is an excellent use for a while loop (or even a do...while loop!)
-5. Add a `render` method to `game` that `play` will call after a guess has been made that alerts:
-    - If the secret has been guessed: `Congrats! You guessed the number in [number of prevGuesses]!`
-    - Otherwise: `Your guess is too [high|low] Previous guesses: x, x, x, x`
-    - Hints:
-        - `render` won’t be able to access any of `play`’s local variables, e.g., `guess`, so be sure pass `render` any arguments as needed (you may not have built your program to use any, that's ok if that's the case!)
-        - Template literals not only have interpolation, but they also honor whitespace - including line breaks!
-        - The list of previous guesses can be generated using the array `join` method.
-6. The `play` method should end (`return`) when the guess matches `secretNum`.*/
